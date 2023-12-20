@@ -12,10 +12,6 @@ const Slider = ({ data, settings, dataName }) => {
 
   return (
     <Swiper
-      hashNavigation={{
-        watchState: true,
-      }}
-      navigation={customSliderSettings.navigation ? true : false}
       modules={[Pagination, Navigation, HashNavigation, Autoplay]}
       className="mySwiper"
       autoplay={autoplaySettings}
