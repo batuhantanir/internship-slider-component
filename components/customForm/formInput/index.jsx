@@ -18,6 +18,9 @@ function FormInput({ data }) {
                 value={values}
                 required={typeName == 'checkbox' || id == "bgDarknessValue" ? false : true}
                 checked={checked}
+                max={typeName == 'number' && id == "bgDarknessValue" ? 1 : null}
+                min={typeName == 'number' && id == "bgDarknessValue" ? 0 : null}
+                step={typeName == 'number' && id == "bgDarknessValue" ? 0.01 : null}
             />
             {error && <span className="flex items-center gap-2 text-red-500 text-sm mt-2 bg-red-200 border rounded px-4 py-2">{error}</span>}
         </label>

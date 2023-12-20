@@ -29,7 +29,7 @@ const Card = ({ data, costumeStyle }) => {
     filter: `${backgroundBlur && "blur(5px)"}`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    filter: `${bgDarkness && `brightness(${bgDarknessValue * 3})`}`,
+    filter: `${bgDarkness && `brightness(${(Math.round(bgDarknessValue) + 1) * bgDarknessValue})`}`,
   };
 
   return (

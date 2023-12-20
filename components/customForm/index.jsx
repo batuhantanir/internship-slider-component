@@ -6,7 +6,7 @@ import FormInput from './formInput';
 
 function CostumeForm({ headerName, formData, handleSubmit, btnName }) {
     return (
-        <div className=" bg-white  w-full max-w-2xl px-4 h-fit rounded-lg border mx-auto">
+        <div className=" bg-white min-w-[300px]  w-full max-w-2xl px-4 h-fit rounded-lg border">
             <div className="flex justify-between border-b px-3 py-4">
                 <h2 className="font-semibold text-xl">{headerName}</h2>
             </div>

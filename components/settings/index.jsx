@@ -5,7 +5,6 @@ import CostumeForm from '../customForm'
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { uuid } from 'uuidv4'
 
 const validationSchema = Yup.object({
   mainText: Yup.string().required('Main Text is required'),
@@ -29,11 +28,39 @@ const validationSchema = Yup.object({
   bgDarknessValue: Yup.number(),
 });
 
-function AdminForm({ setSubmitData }) {
+function Settings() {  
+  // const [data, setData] = useState([]);
+
+  // const [arrowStyles, setArrowStyles] = useState({
+  //   background: 'blue',
+  //   color: 'white',
+  //   padding: '8px',
+  //   margin: '4px',
+  //   cursor: 'pointer',
+  // });
+  // const [autoplaySettings, setAutoplaySettings] = useState({
+  //   delay: 2000,
+  //   disableOnInteraction: false,
+  //   waitForTransition: true,
+  //   pauseOnMouseEnter: true,
+  // });
+  // const [customSliderSettings, setCustomSliderSettings] = useState({
+  //   loop: true,
+  //   navigation: true,
+  //   effect: 'fade',
+  //   speed: 1000,
+  // });
+
+  // // Diğer ayarları güncelleme fonksiyonları buraya eklenir
+
+  // const settings = {
+  //   arrowStyles,
+  //   autoplaySettings,
+  //   customSliderSettings,
+  // };
 
   const { handleSubmit, handleChange, values, resetForm } = useFormik({
     initialValues: {
-      id: uuid(),
       mainText: "",
       subText: "",
       buttonLink: "",
@@ -257,8 +284,8 @@ function AdminForm({ setSubmitData }) {
   ]
 
   return (
-    <CostumeForm formData={formData} handleSubmit={handleSubmit} headerName={"Add slider object"} btnName={"Add Object"} />
+    <CostumeForm formData={formData} handleSubmit={handleSubmit} headerName={"Settings"} btnName={"Save settings"} />
   )
 }
 
-export default AdminForm;
+export default Settings;

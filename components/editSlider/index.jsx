@@ -16,7 +16,7 @@ function EditSlider({localData}) {
     customSliderSettings,
   };
   return (
-    <div className='overflow-x-hidden overflow-y-scroll'>
+    <div className='  max-w-[610px] md:max-w-full '>
       <Slider data={localData} settings={settings} dataName={"editData"}/>
     </div>
   )

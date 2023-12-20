@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 
 import AdminForm from '@/components/adminForm'
 import EditSlider from '@/components/editSlider'
+import Settings from '@/components/settings'
 
 function Admin() {
-    const [localData, setLocalData] = useState([])
-    const [submitData, setSubmitData] = useState({})
+  const [localData, setLocalData] = useState([])
+  const [submitData, setSubmitData] = useState({})
 
 
-     // Sayfa yüklendiğinde localStorage'den verileri al
+  // Sayfa yüklendiğinde localStorage'den verileri al
   useEffect(() => {
     const storedData = localStorage.getItem('localData');
     if (storedData) {
@@ -25,12 +26,21 @@ function Admin() {
     }
   }, [submitData]);
 
-    return (
-        <div className='grid md:grid-cols-2 gap-8  bg-[#f4f4f4] min-h-screen w-full h-fit py-5 px-10'>
-            <AdminForm setSubmitData={setSubmitData} />
-            <EditSlider localData={localData}/>
+  return (
+    <div className='bg-[#f4f4f4]'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8 justify-center md:min-h-screen w-full h-fit py-5 container mx-10 md:mx-auto'>
+        <div className='col-span-1' >
+        <AdminForm setSubmitData={setSubmitData} />
         </div>
-    )
+        <div className='col-span-1 order-2 md:order-[0]'>
+        <Settings />
+        </div>
+        <div className='col-span-2'>
+          <EditSlider localData={localData} />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Admin
