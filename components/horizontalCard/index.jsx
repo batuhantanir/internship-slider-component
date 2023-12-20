@@ -26,19 +26,23 @@ const Card = ({ data, costumeStyle }) => {
 
   const cardStyle = {
     background: bgImageOpen ? `url(${mainImage})` : bgColor,
-    filter: `${backgroundBlur && "blur(5px)"}`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    filter: `${bgDarkness && `brightness(${(Math.round(bgDarknessValue) + 1) * bgDarknessValue})`}`,
   };
 
   return (
     <>
-      <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle}`}></div>
+      {!backgroundBlur ?
+       <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle} filter blur-sm`}></div>
+       :
+        <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle} `}></div>}
+      {
+        bgDarkness && <div className={`w-full h-full absolute ${costumeStyle} bg-black `} style={{opacity: (bgDarknessValue)}}></div>
+      }
       <div
         className={`flex w-full h-full items-center justify-center  bg-no-repeat relative ${costumeStyle}`}
       >
-        <div className='grid md:grid-cols-2 items-center justify-center px-10 py-6 gap-8  text-center '>
+        <div className='grid md:grid-cols-2 items-center justify-center px-10 py-6 gap-8  text-center z-10'>
           {mainImageOpen && (
             <img
               src={mainImage}

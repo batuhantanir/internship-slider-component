@@ -5,19 +5,19 @@ import CostumeForm from '../customForm'
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { redirect } from 'next/dist/server/api-utils';
 
 function changeUser(data, values, userId) {
-    console.log(data);
-    //datanın içinde userid ye göre arama yapıp buluyoruz
-    const changeData = data?.find((element) => element.id == userId);
-    //bulduğumuz verileri eşleştirip eğer değişmiş bir veri var ise güncelliyoruz
-    const mergedObject = Object.assign(changeData, values, changeData);
 
-    console.log(changeData);
-
-    //verileri localStorage'e kaydediyoruz
-    localStorage.setItem("localData", JSON.stringify(data));
+    const updatedData = data.map((element) => {
+      if (element.id === userId) {
+        // Bulduğumuz verileri eşleştirip eğer değişmiş bir veri var ise güncelliyoruz
+        return { ...element, ...values };
+      }
+      return element;
+    });
+  
+    // Verileri localStorage'e kaydediyoruz
+    localStorage.setItem("localData", JSON.stringify(updatedData));
 }
 
 const validationSchema = Yup.object({
