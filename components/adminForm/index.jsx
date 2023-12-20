@@ -110,7 +110,7 @@ function AdminForm({ setSubmitData }) {
       id: "mainImage",
       placeholderName: "Main Image",
       handleChange: handleChange,
-      values: values.mainImage,
+      values: values.mainImageOpen,
     },
     {
       labelName: "Background Color",
