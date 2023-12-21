@@ -16,7 +16,7 @@ function EditSlider({localData}) {
     customSliderSettings,
   };
   return (
-    <div className='  max-w-[610px] md:max-w-full '>
+    <div className='  max-w-[610px] md:max-w-full rounded'>
       <Slider data={localData} settings={settings} dataName={"editData"}/>
     </div>
   )

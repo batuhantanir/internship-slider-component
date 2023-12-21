@@ -19,7 +19,7 @@ const Slider = ({ data, settings, dataName }) => {
     >
       {data.map((item, index) => (
         <SwiperSlide key={index}>
-          {dataName == "editData" && <Link href={`/admin/edit-form/${item.id}`} style={{ background: item.bgColor, color: item.buttonTextColour }} className='inline-block w-full'>Edit Item {index + 1}</Link>}
+          {dataName == "editData" && <Link href={`/admin/edit-form/${item.id}`} style={{ background: item.bgColor, textShadow: '0px 0px 4px #000'}} className='inline-block w-full text-white  shadow-black'>Edit Item {index + 1}</Link>}
           <HorizontalCard data={item} />
         </SwiperSlide>
       ))}

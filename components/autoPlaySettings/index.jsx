@@ -1,92 +1,50 @@
 "use client"
 import React from 'react'
 
-import CostumeForm from '../customForm'
-
-import { useFormik } from 'formik';
+import { Form, Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
+import Input from '../Form/Input';
+import File from '../Form/File';
+import Color from '../Form/Color';
+import CheckBox from '../Form/CheckBox';
+import SubmitButton from '../Form/SubmitButton';
 
 const setSubmitData = (values) => {
-  localStorage.setItem('autoPlaySettings', JSON.stringify(values));
+    localStorage.setItem('autoPlaySettings', JSON.stringify(values));
 }
 
 const validationSchema = Yup.object({
-  delay: Yup.number().required('Required'),
-  disableOnInteraction: Yup.boolean().required('Required'),
-  waitForTransition: Yup.boolean().required('Required'),
-  pauseOnMouseEnter: Yup.boolean().required('Required'),
+    delay: Yup.number().required('Required'),
+    disableOnInteraction: Yup.boolean().required('Required'),
+    waitForTransition: Yup.boolean().required('Required'),
+    pauseOnMouseEnter: Yup.boolean().required('Required'),
 });
 
 function AutoPlaySettings({ storedSettings }) {
-
-  const { handleSubmit, handleChange, values, resetForm } = useFormik({
-    initialValues: {
-      autoPlay: storedSettings?.autoPlay,
-      delay: storedSettings?.delay,
-      disableOnInteraction: storedSettings?.disableOnInteraction,
-      waitForTransition: storedSettings?.waitForTransition,
-      pauseOnMouseEnter: storedSettings?.pauseOnMouseEnter,
-    },
-    validationSchema,
-    onSubmit: values => {
-      setSubmitData(values)
-      window.location.reload();
-    },
-  })
-
-  const formData = [
-
-    {
-      labelName: "Auto play",
-      forHtml: "autoPlay",
-      typeName: "checkbox",
-      name: "autoPlay",
-      id: "autoPlay",
-      handleChange: handleChange,
-      checked: values.autoPlay,
-    },
-    {
-      labelName: "On Interaction",
-      forHtml: "disableOnInteraction",
-      typeName: "checkbox",
-      name: "disableOnInteraction",
-      id: "disableOnInteraction",
-      handleChange: handleChange,
-      checked: values.disableOnInteraction,
-    },
-    {
-      labelName: "Wait For Transition",
-      forHtml: "waitForTransition",
-      typeName: "checkbox",
-      name: "waitForTransition",
-      id: "waitForTransition",
-      handleChange: handleChange,
-      checked: values.waitForTransition,
-    },
-    {
-      labelName: "Pause On Mouse Enter",
-      forHtml: "pauseOnMouseEnter",
-      typeName: "checkbox",
-      name: "pauseOnMouseEnter",
-      id: "pauseOnMouseEnter",
-      handleChange: handleChange,
-      checked: values.pauseOnMouseEnter,
-    },
-    {
-      labelName: "Autoplay Delay (ms)",
-      forHtml: "delay",
-      typeName: "number",
-      name: "delay",
-      id: "delay",
-      placeholderName: "Autoplay Delay (ms)",
-      handleChange: handleChange,
-      values: values.delay,
-    },
-  ]
-
-  return (
-    <CostumeForm formData={formData} handleSubmit={handleSubmit} headerName={"Autoplay settings"} btnName={"Save settings"} />
-  )
+    return (
+        <Formik initialValues={{
+            autoPlay: storedSettings?.autoPlay,
+            delay: storedSettings?.delay,
+            disableOnInteraction: storedSettings?.disableOnInteraction,
+            waitForTransition: storedSettings?.waitForTransition,
+            pauseOnMouseEnter: storedSettings?.pauseOnMouseEnter,
+        }}
+            validationSchema={validationSchema}
+            onSubmit={values => {
+                // setSubmitData(values)
+                // window.location.reload();
+                console.log(values)
+            }}>
+            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5'>
+                <div className='font-semibold text-xl'>Add Object Form</div>
+                <Input label='Delay (ms)' name='delay' type='number' placeholder="2000 ms"/>
+                <CheckBox label='Disable on interaction' name='disableOnInteraction' />
+                <CheckBox label='Wait for transition' name='waitForTransition' />
+                <CheckBox label='Pause on mouse enter' name='pauseOnMouseEnter' />
+                <SubmitButton title="Add Object" />
+            </Form>
+        </Formik>
+    )
 }
 
 export default AutoPlaySettings;

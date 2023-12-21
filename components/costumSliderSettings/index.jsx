@@ -1,10 +1,11 @@
 "use client"
 import React from 'react'
 
-import CostumeForm from '../customForm'
-
-import { useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import Input from '../Form/Input';
+import CheckBox from '../Form/CheckBox';
+import SubmitButton from '../Form/SubmitButton';
 
 const setSubmitData = (values) => {
     localStorage.setItem('customSliderSettings', JSON.stringify(values));
@@ -18,62 +19,32 @@ const validationSchema = Yup.object({
 
 function CustomSliderSettings({ storedSettings }) {
 
-    const { handleSubmit, handleChange, values, resetForm } = useFormik({
-        initialValues: {
-            loop: storedSettings.loop,
-            navigation: storedSettings.navigation,
-            effect: 'fade',
-            speed: storedSettings.speed,
-            pagination: storedSettings.pagination,
-        },
-        validationSchema,
-        onSubmit: values => {
-            setSubmitData(values)
-            window.location.reload();
-        },
-    })
-
-    const formData = [
-        {
-            labelName: "Slider Speed",
-            forHtml: "speed",
-            typeName: "number",
-            name: "speed",
-            id: "speed",
-            handleChange: handleChange,
-            values: values.speed,
-        },
-        {
-            labelName: "Slider Loop",
-            forHtml: "loop",
-            typeName: "checkbox",
-            name: "loop",
-            id: "loop",
-            handleChange: handleChange,
-            checked: values.loop,
-        },
-        {
-            labelName: "Navigation",
-            forHtml: "navigation",
-            typeName: "checkbox",
-            name: "navigation",
-            id: "navigation",
-            handleChange: handleChange,
-            checked: values.navigation,
-        },
-        {
-            labelName: "Pagination",
-            forHtml: "pagination",
-            typeName: "checkbox",
-            name: "pagination",
-            id: "pagination",
-            handleChange: handleChange,
-            checked: values.pagination,
-        },
-    ]
-
     return (
-        <CostumeForm formData={formData} handleSubmit={handleSubmit} headerName={"Slider Settings"} btnName={"Save settings"} />
+        <Formik
+            initialValues={{
+                loop: storedSettings?.loop,
+                navigation: storedSettings?.navigation,
+                effect: 'fade',
+                speed: storedSettings?.speed,
+                pagination: storedSettings?.pagination,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={values => {
+                setSubmitData(values)
+                window.location.reload();
+            }}>
+            <Form>
+                <div className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5'>
+                    <div className='font-semibold text-xl'>Custom Slider Settings</div>
+                    <Input label='Speed (ms)' name='speed' type='number' />
+                    <CheckBox label='Loop' name='loop' />
+                    <CheckBox label='Navigation' name='navigation' />
+                    <CheckBox label='Pagination' name='pagination' />
+                    <SubmitButton title="Add Object" />
+                </div>
+
+            </Form>
+        </Formik>
     )
 }
 

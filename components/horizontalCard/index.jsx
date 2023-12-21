@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,6 +14,7 @@ const Card = ({ data, costumeStyle }) => {
     buttonColour,
     buttonTextColour,
     bgColor,
+    bgImage,
     mainImageOpen,
     MainTextOpen,
     buttonOpen,
@@ -25,19 +27,19 @@ const Card = ({ data, costumeStyle }) => {
   } = data;
 
   const cardStyle = {
-    background: bgImageOpen ? `url(${mainImage})` : bgColor,
+    background: bgImageOpen ? `url(${bgImage?.content})` : bgColor,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   };
-
+  console.log(mainImage);
   return (
     <>
       {!backgroundBlur ?
-       <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle} filter blur-sm`}></div>
-       :
+        <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle} filter blur-sm`}></div>
+        :
         <div style={cardStyle} className={`w-full h-full absolute ${costumeStyle} `}></div>}
       {
-        bgDarkness && <div className={`w-full h-full absolute ${costumeStyle} bg-black `} style={{opacity: (bgDarknessValue)}}></div>
+        bgDarkness && <div className={`w-full h-full absolute ${costumeStyle} bg-black `} style={{ opacity: (bgDarknessValue) }}></div>
       }
       <div
         className={`flex w-full h-full items-center justify-center  bg-no-repeat relative ${costumeStyle}`}
@@ -45,7 +47,7 @@ const Card = ({ data, costumeStyle }) => {
         <div className='grid md:grid-cols-2 items-center justify-center px-10 py-6 gap-8  text-center z-10'>
           {mainImageOpen && (
             <img
-              src={mainImage}
+              src={mainImage?.content}
               alt="Main"
               className={`${changePosition && "order-2"} rounded-[40px] h-full max-w-full max-h-[380px] md:p-6 transition-all duration-500 ease-in-out hover:scale-105`}
             />

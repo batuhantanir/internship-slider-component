@@ -41,16 +41,14 @@ function Admin() {
   if (loading) return <div className='min-h-screen flex justify-center items-center'>Loading...</div>
 
   return (
-    <div className='bg-[#f4f4f4]'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-8 justify-center md:min-h-screen w-full h-fit py-5 container mx-10 md:mx-auto'>
+    <div className='bg-primary h-screen'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center md:min-h- w-full h-fit py-5 container mx-10 md:mx-auto'>
         <div className='col-span-1' >
           <AdminForm setSubmitData={setSubmitData} />
         </div>
-        <div className='flex flex-col gap-8 col-span-1 order-2 md:order-[0]'>
-          <AutoPlaySettings storedSettings={storedAutoPlaySettings} />
-          <CustomSliderSettings storedSettings={storedCustomSliderSettings} />
-        </div>
-        <div className='col-span-2'>
+        <div className='flex flex-col justify-between gap-8 col-span-1 order-2 md:order-[0] max-h-full'>
+          <AutoPlaySettings storedAutoPlaySettings={storedAutoPlaySettings}/>
+          <CustomSliderSettings storedCustomSliderSettings={storedCustomSliderSettings} />
           <EditSlider localData={localData} />
         </div>
       </div>
