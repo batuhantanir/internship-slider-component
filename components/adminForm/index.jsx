@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-import { Form, Formik, useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { uuid } from 'uuidv4'
 import Input from '../Form/Input';
@@ -9,6 +9,13 @@ import SubmitButton from '../Form/SubmitButton';
 import File from '../Form/File';
 import Color from '../Form/Color';
 import CheckBox from '../Form/CheckBox';
+
+const setSubmitData = (submitData, localData, setLocalData) => {
+  if (Object.keys(submitData).length > 0) {
+    setLocalData((prevData) => [...prevData, submitData]);
+    localStorage.setItem('localData', JSON.stringify([...localData, submitData]));
+  }
+}
 
 const validationSchema = Yup.object({
   mainText: Yup.string(),
@@ -33,7 +40,7 @@ const validationSchema = Yup.object({
   bgDarknessValue: Yup.number(),
 });
 
-function AdminForm({ setSubmitData }) {
+function AdminForm({ localData, setLocalData }) {
   const [openColorPicker, setOpenColorPicker] = useState('');
   return (
     <Formik initialValues={{
@@ -61,12 +68,12 @@ function AdminForm({ setSubmitData }) {
     }}
       validationSchema={validationSchema}
       onSubmit={values => {
-        setSubmitData(values)
+        setSubmitData(values, localData, setLocalData)
         window.location.reload();
       }}>
       <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full'>
         <div className='font-semibold text-xl'>Add Object Form</div>
-        <Input type="text" label="Main text" name="mainText" placeholder=""/>
+        <Input type="text" label="Main text" name="mainText" placeholder="" />
         <Input type="text" label="Sub text" name="subText" />
         <Input type="text" label="Button link" name="buttonLink" />
         <Input type="text" label="Button text" name="buttonText" />
@@ -76,10 +83,10 @@ function AdminForm({ setSubmitData }) {
             <File label="Background image" name="bgImage" />
           </div>
           <div className='grid xl:grid-cols-2 '>
-            <Color label="Sub text color" name="subTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
-            <Color label="Main text color" name="mainTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
+            <Color label="Sub text color" name="subTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} hideColorTypeBtns={true} />
+            <Color label="Main text color" name="mainTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} hideColorTypeBtns={true} />
             <Color label="Button color" name="buttonColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
-            <Color label="Button text color" name="buttonTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
+            <Color label="Button text color" name="buttonTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} hideColorTypeBtns={true} />
             <Color label="Background color" name="bgColor" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
           </div>
           <div className='grid gap-2'>

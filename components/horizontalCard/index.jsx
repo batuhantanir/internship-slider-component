@@ -31,7 +31,6 @@ const Card = ({ data, costumeStyle }) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   };
-  console.log(mainImage);
   return (
     <>
       {!backgroundBlur ?

@@ -52,7 +52,7 @@ function EditForm({ localData, id }) {
 
     return (
         <Formik initialValues={{
-            id: editData.id,
+            id: editData?.id,
             mainText: editData.mainText,
             subText: editData.subText,
             buttonLink: editData.buttonLink,
@@ -80,7 +80,7 @@ function EditForm({ localData, id }) {
                 window.location.href = "/admin";
             }}>
             <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full'>
-                <div className='font-semibold text-xl'>Add Object Form</div>
+                <div className='font-semibold text-xl'>Edit Object Form</div>
                 <Input type="text" label="Main text" name="mainText" placeholder="" />
                 <Input type="text" label="Sub text" name="subText" />
                 <Input type="text" label="Button link" name="buttonLink" />
@@ -91,7 +91,7 @@ function EditForm({ localData, id }) {
                         <File label="Background image" name="bgImage" />
                     </div>
                     <div className='grid xl:grid-cols-2 '>
-                        <Color label="Sub text color" name="subTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
+                        <Color label="Sub text color" name="subTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} hideColorTypeBtns={true}  />
                         <Color label="Main text color" name="mainTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
                         <Color label="Button color" name="buttonColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />
                         <Color label="Button text color" name="buttonTextColour" setOpenColorPicker={setOpenColorPicker} openColorPicker={openColorPicker} />

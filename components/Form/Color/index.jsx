@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { useField } from 'formik'
 import ColorPicker from 'react-best-gradient-color-picker'
 
@@ -19,7 +19,7 @@ function Color({ label, ...props }) {
       <div  className={`${props.openColorPicker == label ? "opacity-100" : "opacity-0"} absolute z-10  transition-all delay-200 ease-in-out border rounded mt-2`}>
         <div  className={`${props.openColorPicker == label ? "block" : "hidden"} bg-white p-2 text-center rounded transition-all delay-500 ease-in-out`}>
           <div><span className='font-semibold'>{label}</span> <span onClick={closeColorPicker} className='cursor-pointer right-2 absolute top-0 text-xl font-semibold'>x</span></div>
-          <ColorPicker  value={field.value} onChange={helpers.setValue} />
+          <ColorPicker  value={field.value} onChange={helpers.setValue} hideColorTypeBtns={props.hideColorTypeBtns} />
         </div>
       </div>
     </div>
