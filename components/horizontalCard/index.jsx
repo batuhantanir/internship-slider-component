@@ -27,7 +27,7 @@ const Card = ({ data, costumeStyle }) => {
   } = data;
 
   const cardStyle = {
-    background: bgImageOpen ? `url(${bgImage?.content})` : bgColor,
+    background: bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -46,10 +46,10 @@ const Card = ({ data, costumeStyle }) => {
         className={`flex w-full h-full items-center justify-center  bg-no-repeat relative ${costumeStyle}`}
       >
         <div className='grid md:grid-cols-2 items-center justify-center px-10 py-6 gap-8  text-center z-10'>
-          {mainImageOpen && mainImage?.content && (
+          {mainImageOpen && (
             <div className='h-5/6 '>
               <img
-                src={mainImage?.content}
+                src={mainImage?.content ? mainImage?.content : mainImage}
                 alt="Main"
                 className={`${changePosition && "order-2"} rounded-xl sm:rounded-[40px] w-full h-full md:p-6 transition-all duration-500 ease-in-out hover:scale-105`}
               />
