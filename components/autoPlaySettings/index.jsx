@@ -1,11 +1,9 @@
 "use client"
 import React from 'react'
 
-import { Form, Formik, useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../Form/Input';
-import File from '../Form/File';
-import Color from '../Form/Color';
 import CheckBox from '../Form/CheckBox';
 import SubmitButton from '../Form/SubmitButton';
 
@@ -31,17 +29,23 @@ function AutoPlaySettings({ storedSettings }) {
         }}
             validationSchema={validationSchema}
             onSubmit={values => {
-                // setSubmitData(values)
-                // window.location.reload();
-                console.log(values)
+                setSubmitData(values)
+                window.location.reload();
             }}>
-            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5'>
-                <div className='font-semibold text-xl'>Add Object Form</div>
-                <Input label='Delay (ms)' name='delay' type='number' placeholder="2000 ms"/>
-                <CheckBox label='Disable on interaction' name='disableOnInteraction' />
-                <CheckBox label='Wait for transition' name='waitForTransition' />
-                <CheckBox label='Pause on mouse enter' name='pauseOnMouseEnter' />
-                <SubmitButton title="Add Object" />
+            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 shadow-custome'>
+                <div className='font-semibold text-xl'>Auto play settings</div>
+                <div className='flex flex-col md:flex-row gap-8 col-span-2'>
+                    <div className='flex-1'>
+                        <Input label='Delay (ms)' name='delay' type='range' max={3000} min={100} step={100} />
+                    </div>
+                    <div className='flex justify-between md:justify-normal md:flex-col gap-4 md:gap-2 flex-row flex-wrap'>
+                        <CheckBox label='Auto play' name='autoPlay' />
+                        <CheckBox label='Disable on interaction' name='disableOnInteraction' />
+                        <CheckBox label='Wait for transition' name='waitForTransition' />
+                        <CheckBox label='Pause on mouse enter' name='pauseOnMouseEnter' />
+                    </div>
+                </div>
+                <SubmitButton title="Save Settings" />
             </Form>
         </Formik>
     )

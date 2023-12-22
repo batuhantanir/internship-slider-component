@@ -31,14 +31,14 @@ function Admin() {
   if (loading) return <div className='min-h-screen flex justify-center items-center'>Loading...</div>
 
   return (
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center md:min-h- w-full h-fit py-5 container mx-10 md:mx-auto'>
-        <div className='col-span-1' >
+      <div className='flex flex-wrap gap-8 justify-center  w-full h-fit py-5 container mx-auto'>
+        <div className='w-11/12 lg:w-[55%] ' >
           <AdminForm localData={localData} setLocalData={setLocalData} />
         </div>
-        <div className='flex flex-col justify-between gap-8 col-span-1 order-2 md:order-[0] max-h-full'>
-          <AutoPlaySettings storedAutoPlaySettings={storedAutoPlaySettings}/>
-          <CustomSliderSettings storedCustomSliderSettings={storedCustomSliderSettings} />
+        <div className='flex flex-col justify-between w-11/12 lg:w-[40%] gap-8 col-span-1 order-2 md:order-[0] min-h-fit max-h-full'>
           {localData?.length >= 0 ? <EditSlider localData={localData} /> : <div className='flex justify-center items-center w-full h-full bg-white'>No Slider data please add data</div>}
+          <AutoPlaySettings storedSettings={storedAutoPlaySettings}/>
+          <CustomSliderSettings storedSettings={storedCustomSliderSettings} />
         </div>
       </div>
   )

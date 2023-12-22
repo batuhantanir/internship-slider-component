@@ -9,21 +9,57 @@ import SubmitButton from '../Form/SubmitButton';
 import File from '../Form/File';
 import Input from '../Form/Input';
 
-function changeUser(data, values, userId) {
+function deleteAndInsert(localData, values, userId, newOrderBy) {
+    // Veriyi sileceğimiz index'i buluyoruz
+    const deleteIndex = localData.findIndex((element) => element.id === userId);
 
-    const updatedData = data.map((element) => {
-        if (element.id === userId) {
-            // Bulduğumuz verileri eşleştirip eğer değişmiş bir veri var ise güncelliyoruz
-            return { ...element, ...values };
-        }
-        return element;
-    });
+    // Eğer veri bulunamazsa veya silinecek bir veri yoksa işlem yapmıyoruz
+    if (deleteIndex === -1) {
+        console.error("Veri bulunamadı veya silinecek bir veri yok");
+        return;
+    }
+
+    // Veriyi siliyoruz
+    localData.splice(deleteIndex, 1);
+
+    // Yeni veriyi oluşturuyoruz
+    const newObject = {
+        id: values.id,
+        orderBy: newOrderBy,
+        mainText: values.mainText,
+        subText: values.subText,
+        buttonLink: values.buttonLink,
+        buttonText: values.buttonText,
+        mainImage: values.mainImage,
+        subTextColour: values.subTextColour,
+        mainTextColour: values.mainTextColour,
+        buttonColour: values.buttonColour,
+        buttonTextColour: values.buttonTextColour,
+        bgColor: values.bgColor,
+        bgImage: values.bgImage,
+        mainImageOpen: values.mainImageOpen,
+        MainTextOpen: values.MainTextOpen,
+        buttonOpen: values.buttonOpen,
+        subTextOpen: values.subTextOpen,
+        changePosition: values.changePosition,
+        backgrounBlur: values.backgrounBlur,
+        bgImageOpen: values.bgImageOpen,
+        bgDarkness: values.bgDarkness,
+        bgDarknessValue: values.bgDarknessValue,
+    };
+
+    // Yeni veriyi doğru index'e ekliyoruz
+    localData.splice(newOrderBy - 1, 0, newObject);
+
+    // Yeniden sıralama işlemi yapabilirsiniz
+    // localData.sort((a, b) => a.orderBy - b.orderBy);
 
     // Verileri localStorage'e kaydediyoruz
-    localStorage.setItem("localData", JSON.stringify(updatedData));
+    localStorage.setItem("localData", JSON.stringify(localData));
 }
 
 const validationSchema = Yup.object({
+    orderBy: Yup.number().min(1).max(100) ,
     mainText: Yup.string(),
     subText: Yup.string(),
     buttonLink: Yup.string(),
@@ -48,11 +84,13 @@ const validationSchema = Yup.object({
 
 function EditForm({ localData, id }) {
     const editData = localData.find((element) => element.id == id);
+    const editDataIndex = localData.indexOf(editData);
     const [openColorPicker, setOpenColorPicker] = useState('');
-
+    console.log(editDataIndex);
     return (
         <Formik initialValues={{
             id: editData?.id,
+            orderBy: editDataIndex + 1, 
             mainText: editData.mainText,
             subText: editData.subText,
             buttonLink: editData.buttonLink,
@@ -76,12 +114,13 @@ function EditForm({ localData, id }) {
         }}
             validationSchema={validationSchema}
             onSubmit={values => {
-                changeUser(localData, values, id);
+                deleteAndInsert(localData, values, id, values.orderBy);
                 window.location.href = "/admin";
             }}>
-            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full'>
+            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full shadow-custome'>
                 <div className='font-semibold text-xl'>Edit Object Form</div>
-                <Input type="text" label="Main text" name="mainText" placeholder="" />
+                <Input type="number" label="OrderBy" name="orderBy" pattern="[0-9]*" min="0" max={localData.length + 1}  required/>
+                <Input type="text" label="Main text" name="mainText"  />
                 <Input type="text" label="Sub text" name="subText" />
                 <Input type="text" label="Button link" name="buttonLink" />
                 <Input type="text" label="Button text" name="buttonText" />
