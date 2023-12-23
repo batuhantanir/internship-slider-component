@@ -23,7 +23,7 @@ const setSubmitData = (submitData, localData, setLocalData) => {
 }
 
 const validationSchema = Yup.object({
-  orderBy: Yup.number().required('Required'),
+  orderBy: Yup.number().min(1),
   mainText: Yup.string(),
   subText: Yup.string(),
   buttonLink: Yup.string(),
@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
   buttonOpen: Yup.boolean(),
   subTextOpen: Yup.boolean(),
   changePosition: Yup.boolean(),
-  backgrounBlur: Yup.boolean(),
+  backgroundBlur: Yup.boolean(),
   bgImageOpen: Yup.boolean(),
   bgDarkness: Yup.boolean(),
   bgDarknessValue: Yup.number(),
@@ -70,7 +70,7 @@ function AdminForm({ localData, setLocalData }) {
       buttonOpen: true,
       subTextOpen: true,
       changePosition: true,
-      backgrounBlur: true,
+      backgroundBlur: true,
       bgImageOpen: true,
       bgDarkness: false,
       bgDarknessValue: 0,
@@ -107,7 +107,7 @@ function AdminForm({ localData, setLocalData }) {
                 <CheckBox label="Button open" name="buttonOpen" />
                 <CheckBox label="Sub text open" name="subTextOpen" />
                 <CheckBox label="Change position" name="changePosition" />
-                <CheckBox label="Background blur" name="backgrounBlur" />
+                <CheckBox label="Background blur" name="backgroundBlur" />
                 <CheckBox label="Background image open" name="bgImageOpen" />
                 <CheckBox label="Background Darkness open" name="bgDarkness" onClick={() => setBgDarknessVisible(!bgDarknessVisible)} />
               </div>
@@ -117,7 +117,6 @@ function AdminForm({ localData, setLocalData }) {
           </div>
         </Form>
       }
-
     </Formik>
   )
 }
