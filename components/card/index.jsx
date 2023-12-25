@@ -27,7 +27,7 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
   } = data;
 
   const backgroundStyle = {
-    background: bgImage ? (bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor) : bgColor,
+    background: bgImage ? (bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor ? bgColor : '#000') : bgColor ? bgColor : '#000',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',

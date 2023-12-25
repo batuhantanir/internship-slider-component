@@ -19,7 +19,7 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
       >
         {localData.map((item, index) => (
           <SwiperSlide key={index}>
-            {dataName == "editData" && <Link href={`/admin/edit-form/${item.id}`} style={{ background: item.bgColor, textShadow: '0px 0px 4px #000' }} className='inline-block w-full text-center text-white  shadow-black'>Edit Item {index + 1}</Link>}
+            {dataName == "editData" && <Link href={`/admin/edit-form/${item.id}`} style={{ background: item.bgColor ? item.bgColor : '#000', textShadow: '0px 0px 4px #000' }} className='inline-block w-full text-center text-white  shadow-black'>Edit Item {index + 1}</Link>}
             <Card data={item} cardStyleMainText={cardStyleMainText} cardStyleSubText={cardStyleSubText} cardStyleGrid={cardStyleGrid} cardStyleButton={cardStyleButton} />
           </SwiperSlide>
         ))}
