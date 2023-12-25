@@ -27,7 +27,7 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
   } = data;
 
   const backgroundStyle = {
-    background: bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor,
+    background: bgImage ? (bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor) : bgColor,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -35,7 +35,7 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
 
   return (
     <>
-      {backgroundBlur ?
+      { backgroundBlur ?
         <div style={backgroundStyle} className={`w-full h-full absolute filter blur`}></div>
         :
         <div style={backgroundStyle} className={`w-full h-full absolute `}></div>}
