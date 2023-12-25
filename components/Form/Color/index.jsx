@@ -16,8 +16,8 @@ function Color({ label, ...props }) {
   return (
     <div className='relative'>
       <span onClick={() => props.setOpenColorPicker(props.openColorPicker != label ? label : "")} className='flex gap-2 items-center cursor-pointer whitespace-nowrap'>
-        <div className='w-5 h-5 rounded-full' style={{ background: `${field?.value != "" ? field?.value : '#000'}` }}></div>
-        <span>{label}</span>
+        <div className='w-5 h-5 rounded-full border' style={{ background: `${field?.value != "" ? field?.value : '#000'}` }}></div>
+        <span title={label}>{label.slice(0,14)}{label.length > 14 && '...'}</span>
       </span>
       <div className={`${props.openColorPicker == label ? "opacity-100" : "opacity-0"} absolute z-10  transition-all delay-200 ease-in-out border rounded mt-2`}>
         <div className={`${props.openColorPicker == label ? "block" : "hidden"} bg-white p-2 text-center rounded transition-all delay-500 ease-in-out`}>

@@ -15,22 +15,22 @@ function File({ label, ...props }) {
       lastModified: file.lastModified,
       content: null,  // Dosya içeriği için yer tutucu
     };
-
+    console.log(fileData);
     // Dosya içeriğini okuma işlemi
     const reader = new FileReader();
     reader.onload = (e) => {
       fileData.content = e.target.result;
-
+      
       // Formik formundaki alanın değerini güncelle
       helpers.setValue(fileData);
     };
-
+    
     reader.readAsDataURL(file);
   }, [helpers]);
 
   const handleDelete = () => {
     // Formik formundaki alanın değerini temizle
-    helpers.setValue(null);
+    helpers.setValue('');
   };
 
   return (

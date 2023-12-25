@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Slider from '../Slider'
 
-function EditSlider({localData}) {
+function EditSlider(props) {
   const [customSliderSettings, setCustomSliderSettings] = useState({
     loop: true,
     navigation: true,
@@ -10,15 +10,11 @@ function EditSlider({localData}) {
     speed: 1000,
   });
 
-  // Diğer ayarları güncelleme fonksiyonları buraya eklenir
-
   const settings = {
     customSliderSettings,
   };
   return (
-    <div className='  max-w-[610px] md:max-w-full rounded'>
-      <Slider data={localData} settings={settings} dataName={"editData"}/>
-    </div>
+      <Slider settings={settings} dataName={"editData"} {...props} />
   )
 }
 

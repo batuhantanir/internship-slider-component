@@ -42,8 +42,6 @@ export default function Home() {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-screen h-[50vh] flex justify-center">
-      <Slider data={data} settings={settings} />
-    </div>
+      <Slider localData={data} settings={settings} swiperStyle={"h-[420px]"} />
   );
 }

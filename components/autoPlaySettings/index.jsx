@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
     pauseOnMouseEnter: Yup.boolean().required('Required'),
 });
 
-function AutoPlaySettings({ storedSettings }) {
+function AutoPlaySettings({ storedSettings, adminSettings,setWhichPage,setOpenPage }) {
     return (
         <Formik initialValues={{
             autoPlay: storedSettings?.autoPlay,
@@ -30,9 +30,13 @@ function AutoPlaySettings({ storedSettings }) {
             validationSchema={validationSchema}
             onSubmit={values => {
                 setSubmitData(values)
-                window.location.reload();
+                setWhichPage('Autoplay Ayarları');
+                setOpenPage(true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             }}>
-            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 shadow-custome'>
+            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 shadow-custome' style={{ background: adminSettings.adminPageCardColor ? adminSettings.adminPageCardColor : '#fff' }}>
                 <div className='font-semibold text-xl'>Auto play settings</div>
                 <div className='flex flex-col md:flex-row gap-8 col-span-2'>
                     <div className='flex-1'>
@@ -45,7 +49,7 @@ function AutoPlaySettings({ storedSettings }) {
                         <CheckBox label='Pause on mouse enter' name='pauseOnMouseEnter' />
                     </div>
                 </div>
-                <SubmitButton title="Save Settings" />
+                <SubmitButton title="Save Settings" adminSettings={adminSettings} />
             </Form>
         </Formik>
     )

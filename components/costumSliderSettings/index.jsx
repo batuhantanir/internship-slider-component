@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
     pagination: Yup.boolean(),
 });
 
-function CustomSliderSettings({ storedSettings }) {
+function CustomSliderSettings({ storedSettings, adminSettings, setWhichPage,setOpenPage }) {
 
     const initialValues = {
         loop: storedSettings?.loop,
@@ -34,9 +34,13 @@ function CustomSliderSettings({ storedSettings }) {
             validationSchema={validationSchema}
             onSubmit={values => {
                 setSubmitData(values)
-                window.location.reload();
+                setWhichPage('Slider Ayarları')
+                setOpenPage(true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             }}>
-            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 shadow-custome'>
+            <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 shadow-custome' style={{ background: adminSettings.adminPageCardColor ? adminSettings.adminPageCardColor : '#fff' }}>
                 <div className='font-semibold text-xl'>Custom Slider Settings</div>
                 <div className='flex flex-col md:flex-row gap-8 col-span-2'>
                     <div className='flex-1'>
@@ -48,7 +52,7 @@ function CustomSliderSettings({ storedSettings }) {
                         <CheckBox label='Pagination' name='pagination' />
                     </div>
                 </div>
-                <SubmitButton title="Save settings" />
+                <SubmitButton title="Save settings" adminSettings={adminSettings} />
             </Form>
         </Formik>
     )

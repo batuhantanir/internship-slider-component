@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function SubmitButton({title}) {
+function SubmitButton({ title, adminSettings }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const containerStyle = {
+    backgroundColor: isHovered ? adminSettings?.adminPageBtnHoverColor : adminSettings?.adminPageBtnColor,
+    transition: 'background-color 0.3s ease',
+  };
+  
   return (
-    <button type='submit' className='mt-2 bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-blue-50 active:scale-95 transition-colors delay-100 ease-in-out rounded py-2 w-32 h-fit' >{title}</button>
+    <button type='submit' className='mt-2 active:scale-95 transition-colors delay-100 ease-in-out rounded py-2 w-32 h-fit'
+     style={containerStyle}
+     onMouseEnter={handleMouseEnter}
+     onMouseLeave={handleMouseLeave} >{title}</button>
   )
 }
 

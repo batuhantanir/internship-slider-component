@@ -82,14 +82,12 @@ const validationSchema = Yup.object({
     bgDarknessValue: Yup.number(),
 });
 
-function EditForm({ localData, id }) {
+function EditForm({ localData, id, adminSettings,setOpenPage }) {
     const editData = localData.find((element) => element.id == id);
     const editDataIndex = localData.indexOf(editData);
     const [openColorPicker, setOpenColorPicker] = useState('');
     const [bgDarknessVisible, setBgDarknessVisible] = useState(editData.bgDarkness);
 
-
-    console.log(editDataIndex);
     return (
         <Formik initialValues={{
             id: editData?.id,
@@ -118,11 +116,17 @@ function EditForm({ localData, id }) {
             validationSchema={validationSchema}
             onSubmit={values => {
                 deleteAndInsert(localData, values, id, values.orderBy);
-                window.location.href = "/admin";
+                setOpenPage(true);
+                setTimeout(() => {
+                    window.location.href = "/admin";
+                }, 1500);
             }}>
             {props =>
-                <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full shadow-custome mx-5 '>
-                    <div className='font-semibold text-xl'>Add Object Form</div>
+                <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded bg-white gap-y-5 min-h-full shadow-custome mx-5 ' style={{ backgroundColor: adminSettings.adminPageCardColor ? adminSettings.adminPageCardColor : '#fff' }}>
+                    <div className='flex justify-between col-span-2'>
+                        <div className='font-semibold text-xl'>Edit Object Form</div>
+                        <div className='font-semibold text-base cursor-pointer hover:scale-105 active:scale-95' onClick={() => window.location.href = '/admin'}>X</div>
+                    </div>
                     <Input type="number" label="OrderBy" name="orderBy" pattern="[0-9]*" min="0" max={localData.length + 1} required />
                     <Input type="text" label="Main text" name="mainText" placeholder="" />
                     <Input type="text" label="Sub text" name="subText" />
@@ -153,7 +157,7 @@ function EditForm({ localData, id }) {
                             </div>
                         </div>
                         {bgDarknessVisible && <Input type="range" label="Darkness (0.0-1.0)" max={1} min={0} size={1} step={0.1} maxLength={1} pattern="^0(\.[1-9])?$|^1$" name="bgDarknessValue" />}
-                        <SubmitButton title="Add Object" />
+                        <SubmitButton title="Save Object" adminSettings={adminSettings} />
                     </div>
                 </Form>
             }
