@@ -35,7 +35,7 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
   const handleMouseLeave = () => {
     autoplaySettings.pauseOnMouseEnter && setIsMouseOver(false);
   };
-
+  {/* mouse ile yapılacak sürüklemeler için tanımlamalar */ }
   // Fare tıklamasının başlangıcı
   const handleMouseDown = (e) => {
     setStartX(e.pageX);
@@ -72,6 +72,45 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
       document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging]);
+
+  {/* mobil tablet gibi dokunmatikler ile yapılacak sürüklemeler */ }
+  // Touch olayları için dinleme fonksiyonları
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].pageX);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+
+    const deltaX = startX - e.touches[0].pageX;
+
+    if (deltaX > 50 && (customSliderSettings.loop ? true : currentIndex !== localData.length - 1)) {
+      setIsDragging(false);
+      nextSlide();
+    } else if (deltaX < -50 && (customSliderSettings.loop ? true : currentIndex !== 0)) {
+      setIsDragging(false);
+      prevSlide();
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Touch olaylarına dinleme ekleme ve temizleme
+  useEffect(() => {
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isDragging]);
+
 
   // autoplay true olduğunda ve üzerine mouse gelmediğinde bir interval tanımlama ve silme
   useEffect(() => {
