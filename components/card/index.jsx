@@ -45,13 +45,13 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
       <div
         className={`flex w-full h-full items-center justify-center  bg-no-repeat relative `}
       >
-        <div className={`grid  ${cardStyleGrid ? cardStyleGrid : "md:grid-cols-2"} items-center justify-center px-10 py-6 sm:gap-8   text-center z-10 mx-2`}>
+        <div className={`grid  ${cardStyleGrid ? cardStyleGrid : "md:grid-cols-2"} items-center justify-center px-10 py-6 gap-2 sm:gap-8   text-center z-10 mx-2`}>
           {mainImage && mainImageOpen && (
             <div className={`${changePosition && "order-2"} flex justify-center`}>
               <img
                 src={mainImage?.content ? mainImage?.content : mainImage}
                 alt="Main"
-                className={` rounded-xl sm:rounded-[40px] w-full max-w-2xl h-full max-h-[25rem] md:p-6 transition-all duration-500 ease-in-out hover:scale-105`}
+                className={` rounded-xl sm:rounded-[40px] w-full max-w-xl h-full max-h-[25rem] md:p-6 transition-all duration-500 ease-in-out hover:scale-105`}
               />
             </div>
           )}

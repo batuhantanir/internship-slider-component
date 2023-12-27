@@ -17,6 +17,9 @@ module.exports = {
       },    
       boxShadow: {
         'custome': '0px 0px 8px #8ca6b069;'
+      },
+      transitionProperty: {
+        'margin': 'margin',
       }
     },
   },

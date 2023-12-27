@@ -55,13 +55,40 @@ function Admin() {
             <CustomSliderSettings storedSettings={storedCustomSliderSettings} adminSettings={adminSettings} setWhichPage={setWhichPage} setOpenPage={setOpenPage} />
           </div>
         </div>
-        <div className='flex w-full gap-8 flex-col lg:flex-row md:flex-nowrap justify-center px-[4%] sm:px-7 lg:px-6'>
-          {localData?.length > 0 ? <EditSlider localData={localData} swiperStyle={"h-[200px] sm:h-[350px] lg:h-full"} cardStyle={"cardStyle"} cardStyleGrid={"grid-cols-2"} cardStyleMainText={"text-[12px] md:text-4xl xl:text-5xl"} cardStyleSubText={"text-[10px] sm:text-lg md:text-2xl xl:text-3xl"} cardStyleButton={"text-[7px] px-1 py-1 sm:py-2 sm:px-4 "} /> : <div className='flex justify-center items-center w-full h-full bg-white'>No Slider data please add data</div>}
-          {localData?.length > 0 ? <EditSlider localData={localData} cardStyle={"cardStyle"} swiperStyle={"w-full sm:w-[380px] h-[520px]"} cardStyleGrid={"grid-cols-1"} cardStyleMainText={"text-2xl"} cardStyleSubText={"text-lg"} cardStyleButton={"text-sm"} /> : <div className='flex justify-center items-center w-full h-full bg-white'>No Slider data please add data</div>}
+        <div className='flex w-full gap-8 flex-col items-center lg:flex-row md:flex-nowrap justify-center px-[4%] sm:px-7 lg:px-6'>
+            {localData?.length > 0 ?
+              <EditSlider
+                localData={localData}
+                swiperStyle={"h-[200px] sm:h-[350px] lg:h-[520px]"}
+                cardStyle={"cardStyle"}
+                cardStyleGrid={"grid-cols-2"}
+                cardStyleMainText={"text-[12px] md:text-4xl xl:text-5xl"}
+                cardStyleSubText={"text-[10px] sm:text-lg md:text-2xl xl:text-3xl"}
+                cardStyleButton={"text-[7px] px-1 py-1 sm:py-2 sm:px-4 "} />
+              :
+              <div className='flex justify-center items-center w-full h-full bg-white'>
+                No Slider data please add data
+              </div>}
+          <div className='min-w-[320px] w-full max-w-[375px] h-[520px]'>
+            {localData?.length > 0 ?
+              <EditSlider
+                localData={localData}
+                cardStyle={"cardStyle"}
+                swiperStyle={"h-[520px]"}
+                cardStyleGrid={"grid-cols-1"}
+                cardStyleMainText={"text-2xl"}
+                cardStyleSubText={"text-lg"}
+                cardStyleButton={"text-sm"} />
+              :
+              <div className='flex justify-center items-center w-full h-full bg-white'>
+                No Slider data please add data
+              </div>
+            }
+          </div>
         </div>
       </div>
       {openPage && <ToInform title={"Slider item'i başarı ile eklendi"} />}
-      {openPage && whichPage && <ToInform title={`"${whichPage} başarılı bir şekilde kaydedildi."`} /> }
+      {openPage && whichPage && <ToInform title={`"${whichPage} başarılı bir şekilde kaydedildi."`} />}
     </div>
   )
 }
