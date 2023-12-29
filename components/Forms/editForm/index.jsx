@@ -58,34 +58,34 @@ const validationSchema = Yup.object({
 
 function EditForm({ localData, id, adminSettings, setOpenPage }) {
     const editData = localData?.find((element) => element.id == id);
-    const editDataIndex = localData?.indexOf(editData);
+    const editDataIndex = localData.indexOf(editData);
     const [openColorPicker, setOpenColorPicker] = useState('');
-    const [bgDarknessVisible, setBgDarknessVisible] = useState(editData?.bgDarkness);
+    const [bgDarknessVisible, setBgDarknessVisible] = useState(editData.bgDarkness);
 
     return (
         <Formik initialValues={{
             id: editData?.id,
             orderBy: editDataIndex + 1,
-            mainText: editData?.mainText,
-            subText: editData?.subText,
-            buttonLink: editData?.buttonLink,
-            buttonText: editData?.buttonText,
-            mainImage: editData?.mainImage,
-            subTextColour: editData?.subTextColour,
-            mainTextColour: editData?.mainTextColour,
-            buttonColour: editData?.buttonColour,
-            buttonTextColour: editData?.buttonTextColour,
-            bgColor: editData?.bgColor,
-            bgImage: editData?.bgImage,
-            mainImageOpen: editData?.mainImageOpen,
-            MainTextOpen: editData?.MainTextOpen,
-            buttonOpen: editData?.buttonOpen,
-            subTextOpen: editData?.subTextOpen,
-            changePosition: editData?.changePosition,
-            backgroundBlur: editData?.backgroundBlur,
-            bgImageOpen: editData?.bgImageOpen,
-            bgDarkness: editData?.bgDarkness,
-            bgDarknessValue: editData?.bgDarknessValue,
+            mainText: editData.mainText,
+            subText: editData.subText,
+            buttonLink: editData.buttonLink,
+            buttonText: editData.buttonText,
+            mainImage: editData.mainImage,
+            subTextColour: editData.subTextColour,
+            mainTextColour: editData.mainTextColour,
+            buttonColour: editData.buttonColour,
+            buttonTextColour: editData.buttonTextColour,
+            bgColor: editData.bgColor,
+            bgImage: editData.bgImage,
+            mainImageOpen: editData.mainImageOpen,
+            MainTextOpen: editData.MainTextOpen,
+            buttonOpen: editData.buttonOpen,
+            subTextOpen: editData.subTextOpen,
+            changePosition: editData.changePosition,
+            backgroundBlur: editData.backgroundBlur,
+            bgImageOpen: editData.bgImageOpen,
+            bgDarkness: editData.bgDarkness,
+            bgDarknessValue: editData.bgDarknessValue,
         }}
             validationSchema={validationSchema}
             onSubmit={values => {

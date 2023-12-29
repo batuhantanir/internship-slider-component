@@ -6,7 +6,6 @@ import ToInform from '@/components/toInform';
 
 function EditFormId({ params }) {
   const [adminSettings, setAdminSettings] = useState({})
-  const [localData, setLocalData] = useState([])
   const [openPage, setOpenPage] = useState(false)
 
   useEffect(() => {
@@ -14,13 +13,15 @@ function EditFormId({ params }) {
     const storedAdminSettings = localStorage.getItem('adminSettings');
     storedAdminSettings && setAdminSettings(JSON.parse(storedAdminSettings));
 
-    // localData'yı localStorage'den al ve set et
-    const storedData = localStorage?.getItem('localData');
-    storedData && setLocalData(JSON.parse(storedData));
+
   }, [])
 
+  // localData'yı localStorage'den al ve set et
+  const storedData = localStorage?.getItem('localData');
+  const localData = storedData ? JSON.parse(storedData) : [];
+
   const { adminPageBgColor, adminPageTextColor } = adminSettings;
-  
+
   return (
     <div className='flex justify-center items-center min-h-screen w-screen' style={{ backgroundColor: adminPageBgColor ? adminPageBgColor : '#fff', color: adminPageTextColor ? adminPageTextColor : "#000" }}>
       <EditForm localData={localData} id={params.id} adminSettings={adminSettings} setOpenPage={setOpenPage} />
