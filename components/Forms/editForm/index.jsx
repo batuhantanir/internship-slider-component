@@ -57,10 +57,10 @@ const validationSchema = Yup.object({
 });
 
 function EditForm({ localData, id, adminSettings, setOpenPage }) {
-    const editData = localData.find((element) => element.id == id);
-    const editDataIndex = localData.indexOf(editData);
+    const editData = localData?.find((element) => element.id == id);
+    const editDataIndex = localData?.indexOf(editData);
     const [openColorPicker, setOpenColorPicker] = useState('');
-    const [bgDarknessVisible, setBgDarknessVisible] = useState(editData.bgDarkness);
+    const [bgDarknessVisible, setBgDarknessVisible] = useState(editData?.bgDarkness);
 
     return (
         <Formik initialValues={{
