@@ -3,9 +3,9 @@ import React from 'react'
 
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import Input from '../Form/Input';
-import CheckBox from '../Form/CheckBox';
-import SubmitButton from '../Form/SubmitButton';
+import Input from '../FormsElement/Input';
+import CheckBox from '../FormsElement/CheckBox';
+import SubmitButton from '../FormsElement/SubmitButton';
 
 const setSubmitData = (values) => {
     localStorage.setItem('autoPlaySettings', JSON.stringify(values));

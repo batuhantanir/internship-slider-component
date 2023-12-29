@@ -1,12 +1,10 @@
 "use client"
 import React, { useState } from 'react'
 
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import Input from '../Form/Input';
-import CheckBox from '../Form/CheckBox';
-import SubmitButton from '../Form/SubmitButton';
-import Color from '../Form/Color';
+import SubmitButton from '../FormsElement/SubmitButton';
+import Color from '../FormsElement/Color';
 
 const setSubmitData = (values) => {
     localStorage.setItem('adminSettings', JSON.stringify(values));

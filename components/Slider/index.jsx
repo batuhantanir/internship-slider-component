@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../card';
+import SliderCard from './sliderCard';
 import Link from 'next/link';
 
-// Slider bileşeni
 const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSubText, cardStyleGrid, swiperStyle, cardStyleButton }) => {
-  // State kullanımı
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { customSliderSettings, autoplaySettings } = settings;
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [startX, setStartX] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+
+  const { customSliderSettings, autoplaySettings } = settings;
 
   // Bir sonraki slayta geçme fonksiyonu
   const nextSlide = () => {
@@ -28,25 +27,26 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
 
   // Fare üzerine gelindiğinde otomatik oynatmayı durdurma
   const handleMouseEnter = () => {
-    autoplaySettings.pauseOnMouseEnter && setIsMouseOver(true);
+    autoplaySettings?.pauseOnMouseEnter && setIsMouseOver(true);
   };
 
   // Fare üzerinden çıkıldığında otomatik oynatmayı başlatma
   const handleMouseLeave = () => {
-    autoplaySettings.pauseOnMouseEnter && setIsMouseOver(false);
+    autoplaySettings?.pauseOnMouseEnter && setIsMouseOver(false);
   };
+
   {/* mouse ile yapılacak sürüklemeler için tanımlamalar */ }
-  // Fare tıklamasının başlangıcı
-  const handleMouseDown = (e) => {
-    setStartX(e.pageX);
+  // drag tıklamanın başlangıcı
+  const handleStart = (e) => {
+    setStartX((e.type == "touchstart" ? e.touches[0].pageX : e.pageX));
     setIsDragging(true);
   };
 
-  // Fare sürükleme işlemi
-  const handleMouseMove = (e) => {
+  // drag işlemi
+  const handleMove = (e) => {
     if (!isDragging) return;
 
-    const deltaX = startX - e.pageX;
+    const deltaX = startX - (e.type == "touchmove" ? e.touches[0].pageX : e.pageX);
 
     if (deltaX > 50 && (customSliderSettings.loop ? true : currentIndex !== localData.length - 1)) {
       setIsDragging(false);
@@ -57,60 +57,10 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
     }
   };
 
-  // Fare tıklamasının sonlanması
-  const handleMouseUp = () => {
+  // dragın sonlanması
+  const handleEnd = () => {
     setIsDragging(false);
   };
-
-  // Mouse tıklaması ve sürükleme olaylarına dinleme ekleme ve temizleme
-  useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging]);
-
-  {/* mobil tablet gibi dokunmatikler ile yapılacak sürüklemeler */ }
-  // Touch olayları için dinleme fonksiyonları
-  const handleTouchStart = (e) => {
-    setStartX(e.touches[0].pageX);
-    setIsDragging(true);
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-
-    const deltaX = startX - e.touches[0].pageX;
-
-    if (deltaX > 50 && (customSliderSettings.loop ? true : currentIndex !== localData.length - 1)) {
-      setIsDragging(false);
-      nextSlide();
-    } else if (deltaX < -50 && (customSliderSettings.loop ? true : currentIndex !== 0)) {
-      setIsDragging(false);
-      prevSlide();
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  // Touch olaylarına dinleme ekleme ve temizleme
-  useEffect(() => {
-    document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [isDragging]);
-
 
   // autoplay true olduğunda ve üzerine mouse gelmediğinde bir interval tanımlama ve silme
   useEffect(() => {
@@ -119,26 +69,22 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
     if (autoplaySettings?.autoPlay && !isMouseOver) {
       interval = setInterval(() => {
         if (customSliderSettings.loop || currentIndex < localData.length - 1) {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % localData.length);
+          nextSlide();
         } else {
           clearInterval(interval); // Döngü yapılmıyorsa ve sona ulaşıldıysa durma aralığı
         }
-      }, autoplaySettings?.autoplayInterval || autoplaySettings.delay);
+      }, autoplaySettings.delay);
     }
 
     return () => clearInterval(interval);
-  }, [currentIndex, customSliderSettings?.loop, localData.length, autoplaySettings?.autoplayInterval, autoplaySettings?.delay, isMouseOver]);
-
-
-  // slide da current index e göre gösterilecek cardın gösterimi
-  const transformValue = `translateX(-${currentIndex * 100}%)`;
+  }, [currentIndex, customSliderSettings?.loop, localData.length, autoplaySettings?.delay, isMouseOver]);
 
   return (
     <div className='relative overflow-hidden w-full'>
       {/* Slayt içeriği */}
       <div
         className={`flex ${swiperStyle} h-fit transition-transform duration-500 ease-linear`}
-        style={{ transform: transformValue }}
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -155,16 +101,24 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
               </Link>
             )}
             {/* Card bileşeni */}
-            <Card data={item} cardStyleMainText={cardStyleMainText} cardStyleSubText={cardStyleSubText} cardStyleGrid={cardStyleGrid} cardStyleButton={cardStyleButton} />
+            <SliderCard data={item} cardStyleMainText={cardStyleMainText} cardStyleSubText={cardStyleSubText} cardStyleGrid={cardStyleGrid} cardStyleButton={cardStyleButton} />
           </div>
         ))}
       </div>
       {/* Sürükleme alanı */}
-      <div
-        className='absolute top-0 left-0 w-full h-full'
-        onMouseDown={handleMouseDown}
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-      />
+      {dataName != "editData" &&
+        <div
+          className='absolute top-0 left-0 w-full h-full'
+          onMouseDown={handleStart}
+          onMouseMove={handleMove}
+          onMouseUp={handleEnd}
+          onTouchStart={handleStart}
+          onTouchMove={handleMove}
+          onTouchEnd={handleEnd}
+          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />}
       {/* Önceki ve sonraki düğmeler */}
       {customSliderSettings?.navigation && (
         <>

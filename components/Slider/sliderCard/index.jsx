@@ -1,30 +1,11 @@
 "use client"
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 
-const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardStyleButton }) => {
-  const {
-    mainText,
-    subText,
-    buttonLink,
-    buttonText,
-    mainImage,
-    subTextColour,
-    mainTextColour,
-    buttonColour,
-    buttonTextColour,
-    bgColor,
-    bgImage,
-    mainImageOpen,
-    MainTextOpen,
-    buttonOpen,
-    subTextOpen,
-    changePosition,
-    backgroundBlur,
-    bgImageOpen,
-    bgDarkness,
-    bgDarknessValue,
-  } = data;
+const SliderCard = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardStyleButton }) => {
+  const { mainText, subText, buttonLink, buttonText, mainImage, subTextColour, mainTextColour, buttonColour, buttonTextColour, bgColor,
+    bgImage, mainImageOpen, MainTextOpen, buttonOpen, subTextOpen, changePosition, backgroundBlur, bgImageOpen, bgDarkness,
+    bgDarknessValue, } = data;
 
   const backgroundStyle = {
     background: bgImage ? (bgImageOpen ? `url(${bgImage?.content ? bgImage?.content : bgImage})` : bgColor ? bgColor : '#000') : bgColor ? bgColor : '#000',
@@ -35,7 +16,7 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
 
   return (
     <>
-      { backgroundBlur ?
+      {backgroundBlur ?
         <div style={backgroundStyle} className={`w-full h-full absolute filter blur`}></div>
         :
         <div style={backgroundStyle} className={`w-full h-full absolute `}></div>}
@@ -69,7 +50,7 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
             {buttonOpen && (
               <Link
                 href={buttonLink}
-                className={`${cardStyleButton ? cardStyleButton :"text-sm  xl:text-xl"} py-1 px-2 sm:py-2 sm:px-4 rounded-full order-2 md:order-3 w-fit mt-2 inline-block font-semibold  transition-all duration-500 ease-in-out origin-center hover:rotate-6`}
+                className={`${cardStyleButton ? cardStyleButton : "text-sm  xl:text-xl"} py-1 px-2 sm:py-2 sm:px-4 rounded-full order-2 md:order-3 w-fit mt-2 inline-block font-semibold  transition-all duration-500 ease-in-out origin-center hover:rotate-6`}
                 style={{ background: buttonColour, color: buttonTextColour }}
               >
                 {buttonText}
@@ -82,4 +63,4 @@ const Card = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, cardSt
   );
 };
 
-export default Card;
+export default SliderCard;

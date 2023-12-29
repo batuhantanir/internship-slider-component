@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 import { Form, Formik, } from 'formik';
 import * as Yup from 'yup';
 import { uuid } from 'uuidv4'
-import Input from '../Form/Input';
-import SubmitButton from '../Form/SubmitButton';
-import File from '../Form/File';
-import Color from '../Form/Color';
-import CheckBox from '../Form/CheckBox';
+import Input from '../FormsElement/Input';
+import SubmitButton from '../FormsElement/SubmitButton';
+import File from '../FormsElement/File';
+import Color from '../FormsElement/Color';
+import CheckBox from '../FormsElement/CheckBox';
 
 const setSubmitData = (submitData, localData, setLocalData, setOpenPage) => {
   if (Object.keys(submitData).length > 0) {
@@ -48,7 +48,7 @@ const validationSchema = Yup.object({
   bgDarknessValue: Yup.number(),
 });
 
-function AdminForm({ localData, setLocalData, setOpenPage, adminSettings }) {
+function AdminForm({ localData, setLocalData, setOpenPage, adminSettings,setWhichPage }) {
   const [openColorPicker, setOpenColorPicker] = useState('');
   const [bgDarknessVisible, setBgDarknessVisible] = useState(false);
 
@@ -80,8 +80,8 @@ function AdminForm({ localData, setLocalData, setOpenPage, adminSettings }) {
       validationSchema={validationSchema}
       onSubmit={values => {
         setSubmitData(values, localData, setLocalData, setOpenPage)
+        setWhichPage("addObject")
       }}>
-      {props =>
         <Form className='grid border grid-cols-1 md:grid-cols-2 p-5 rounded gap-y-5 min-h-full shadow-custome  ' style={{ background: adminSettings.adminPageCardColor ? adminSettings?.adminPageCardColor : '#fff' }}>
           <div className='font-semibold text-xl'>Add Object Form</div>
           <Input type="number" label="OrderBy" name="orderBy" pattern="[0-9]*" min="0" max={localData.length + 1} required />
@@ -117,7 +117,6 @@ function AdminForm({ localData, setLocalData, setOpenPage, adminSettings }) {
             <SubmitButton title="Add Object" adminSettings={adminSettings} />
           </div>
         </Form>
-      }
     </Formik>
   )
 }
