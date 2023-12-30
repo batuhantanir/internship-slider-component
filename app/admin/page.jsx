@@ -71,7 +71,7 @@ function Admin() {
               localData={localData}
               settings={defaultSettings}
               dataName={"editData"}
-              swiperStyle={"h-[200px] sm:h-[350px] lg:h-[520px]"}
+              swiperContainerStyle={"h-[200px] sm:h-[350px] lg:h-[520px]"}
               cardStyle={"cardStyle"}
               cardStyleGrid={"grid-cols-2"}
               cardStyleMainText={"text-[12px] md:text-4xl xl:text-5xl"}
@@ -88,7 +88,7 @@ function Admin() {
                 settings={defaultSettings}
                 dataName={"editData"}
                 cardStyle={"cardStyle"}
-                swiperStyle={"h-[520px]"}
+                swiperContainerStyle={"h-full"}
                 cardStyleGrid={"grid-cols-1"}
                 cardStyleMainText={"text-2xl"}
                 cardStyleSubText={"text-lg"}

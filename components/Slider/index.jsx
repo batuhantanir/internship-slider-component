@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SliderCard from './sliderCard';
 import Link from 'next/link';
 
-const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSubText, cardStyleGrid, swiperStyle, cardStyleButton }) => {
+const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSubText, cardStyleGrid, swiperStyle, swiperContainerStyle, cardStyleButton }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [startX, setStartX] = useState(null);
@@ -80,10 +80,10 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
   }, [currentIndex, customSliderSettings?.loop, localData.length, autoplaySettings?.delay, isMouseOver]);
 
   return (
-    <div className='relative overflow-hidden w-full'>
+    <div className={`relative overflow-hidden w-full ${swiperContainerStyle} `}>
       {/* Slayt içeriği */}
       <div
-        className={`flex ${swiperStyle} h-fit transition-transform duration-500 ease-linear`}
+        className={`flex h-full ${swiperStyle} transition-transform duration-500 ease-linear`}
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
