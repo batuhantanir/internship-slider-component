@@ -84,9 +84,15 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
       {/* Slayt içeriği */}
       <div
         className={`flex h-full ${swiperStyle} transition-transform duration-500 ease-linear`}
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        style={{ transform: `translateX(-${currentIndex * 100}%)`, cursor: isDragging ? 'grabbing' : 'grab' }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onMouseDown={handleStart}
+        onMouseMove={handleMove}
+        onMouseUp={handleEnd}
+        onTouchStart={handleStart}
+        onTouchMove={handleMove}
+        onTouchEnd={handleEnd}
       >
         {localData.map((item, index) => (
           <div key={index} className={`flex-1 min-w-full`}>
@@ -105,26 +111,12 @@ const Slider = ({ localData, settings, dataName, cardStyleMainText, cardStyleSub
           </div>
         ))}
       </div>
-      {/* Sürükleme alanı */}
-      {dataName != "editData" &&
-        <div
-          className='absolute top-0 left-0 w-full h-full'
-          onMouseDown={handleStart}
-          onMouseMove={handleMove}
-          onMouseUp={handleEnd}
-          onTouchStart={handleStart}
-          onTouchMove={handleMove}
-          onTouchEnd={handleEnd}
-          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />}
       {/* Önceki ve sonraki düğmeler */}
       {customSliderSettings?.navigation && (
         <>
           <button
             onClick={prevSlide}
-            className={`absolute top-1/2 left-3 z-10 cursor-pointer transform -translate-y-1/2 transition-colors ease-in-out
+            className={`absolute top-1/2 left-3 cursor-pointer transform -translate-y-1/2 transition-colors ease-in-out
             md:scale-110 lg:scale-125 xl:scale-150 bg-white/50 rounded-full w-8 h-8 disabled:cursor-not-allowed 
             disabled:opacity-20`}
             style={{ transitionDelay: `${customSliderSettings.speed}ms` }}

@@ -33,6 +33,7 @@ const SliderCard = ({ data, cardStyleMainText, cardStyleSubText, cardStyleGrid, 
                 src={mainImage?.content ? mainImage?.content : mainImage}
                 alt="Main"
                 className={` rounded-xl sm:rounded-[40px] w-full max-w-xl h-full max-h-[25rem] md:p-6 transition-all duration-500 ease-in-out hover:scale-105`}
+                draggable={false}
               />
             </div>
           )}
