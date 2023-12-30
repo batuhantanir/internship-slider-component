@@ -4,7 +4,7 @@ import ColorPicker from 'react-best-gradient-color-picker'
 
 export function CheckBox({ label, ...props }) {
 
-    const [field] = useField(props);
+    const [field,meta,helpers] = useField(props);
 
     return (
         <label className='flex items-center gap-2'>
@@ -16,7 +16,7 @@ export function CheckBox({ label, ...props }) {
 
 export function Color({ label, ...props }) {
 
-    const [field, helpers] = useField(props)
+    const [field, meta, helpers] = useField(props)
 
     const closeColorPicker = (e) => {
         if (e.target.id != label) {
@@ -41,7 +41,7 @@ export function Color({ label, ...props }) {
 }
 
 export function File({ label, ...props }) {
-    const [field, helpers] = useField(props);
+    const [field, meta, helpers] = useField(props);
 
     const handleFileSelect = useCallback((e) => {
         const file = e.target.files[0];
@@ -77,12 +77,28 @@ export function File({ label, ...props }) {
     return (
         <div className="flex flex-col gap-1">
             <label htmlFor={field?.name} className='font-semibold'>{label}</label>
-            <input type="file" id={field?.name} className="hidden" onChange={handleFileSelect} {...props} />
+            <input type="file" accept="image/png, image/gif, image/jpeg image/avif image/webp" id={field?.name} className="hidden" onChange={handleFileSelect} {...props} />
             <label htmlFor={field?.name} className="inline-block border bg-blue-50 text-blue-500 px-4 py-2 w-fit cursor-pointer active:scale-95 hover:bg-blue-500 hover:text-blue-50">Choose File</label>
             <span className="text-center" >{fileName}{field.value?.name?.length > 15 && <span>...</span>}</span>
             {<button className="disabled:cursor-not-allowed text-red-500 disabled:opacity-0 hover:text-red-600" onClick={handleDelete} disabled={!field?.value} >Delete image</button>}
         </div>
     );
+}
+
+export function Input({ label, ...props }) {
+
+    const [field, meta, helpers] = useField(props)
+    return (
+        <label className={`flex flex-col col-span-6 sm:col-span-3 `}>
+            <span className='text-sm font-medium mb-2'>{label}</span>
+            <input {...field} {...props} className='border-b-[1.5px] p-2 w-full outline-none rounded-lg  placeholder:text-sm focus:border-black' />
+            {props.type === "range" && <div className='flex justify-between'>
+                <span>{props.min}</span>
+                <span>{(props.max - props.min) / 2}</span>
+                <span>{props.max}</span>
+            </div>}
+        </label>
+    )
 }
 
 

@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import SubmitButton from '../FormsElement/SubmitButton';
-import Color from '../FormsElement/Color';
+import { Color, SubmitButton } from '../FormsElement';
 
 const setSubmitData = (values) => {
     localStorage.setItem('adminSettings', JSON.stringify(values));
@@ -17,7 +16,7 @@ const validationSchema = Yup.object({
     title: Yup.boolean(),
 });
 
-function AdminPageSettings({ adminSettings, setWhichPage, setOpenPage}) {
+function AdminPageSettings({ adminSettings, setWhichPage, setOpenPage }) {
     const [openColorPicker, setOpenColorPicker] = useState('');
 
     return (

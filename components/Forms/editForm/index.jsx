@@ -3,11 +3,7 @@ import React, { useState } from 'react'
 
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import Color from '../FormsElement/Color';
-import CheckBox from '../FormsElement/CheckBox';
-import SubmitButton from '../FormsElement/SubmitButton';
-import File from '../FormsElement/File';
-import Input from '../FormsElement/Input';
+import {CheckBox,Color,File,Input,SubmitButton} from '../FormsElement';
 
 function deleteAndInsert(localData, values, userId, newOrderBy) {
     // Veriyi sileceğimiz index'i buluyoruz
